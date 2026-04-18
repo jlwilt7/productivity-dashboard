@@ -95,7 +95,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             // router then forwards authenticated users to /dashboard.
             // NOTE: this URL must be allow-listed under Authentication →
             // URL Configuration → Redirect URLs in the Supabase dashboard.
-            emailRedirectTo: window.location.origin,
+            emailRedirectTo: `${window.location.origin}${import.meta.env.BASE_URL}`,
           },
         });
         return { error: error?.message ?? null };
@@ -105,7 +105,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       },
       resetPassword: async (email) => {
         const { error } = await supabase.auth.resetPasswordForEmail(email, {
-          redirectTo: window.location.origin,
+          redirectTo: `${window.location.origin}${import.meta.env.BASE_URL}`,
         });
         return { error: error?.message ?? null };
       },
